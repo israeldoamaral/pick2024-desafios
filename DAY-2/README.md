@@ -6,7 +6,7 @@ Nessa atividade você não tem o passo a passo de como criar cada tarefa, afinal
 
 Esse não é um teste fácil, então tenha paciência com você!
 
-### Passos
+### Descrição
 
 1. Criar um conta no Docker Hub, caso ainda não possua uma.  
 2. Criar uma conta no Github, caso ainda não possua uma.  
@@ -22,3 +22,82 @@ Esse não é um teste fácil, então tenha paciência com você!
 
 > [!TIP]  
 Preste atenção no uso de variável de ambiente, precisamos ter a variável REDIS_HOST no container. Use sua criatividade!
+
+## Passos
+
+Com as contas do Docker Hub e GitHub criadas vamos a execução.
+
+### Criando os Dockerfiles
+
+1. "Dockerfile.app" da aplicação giropops-senha
+```
+FROM python:3.13.0a4-alpine3.19
+
+LABEL description="Desafio day2" \
+      stack="Python" \
+      version="3.13.0a4-alpine3.19"
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+COPY requirements.txt /usr/src/app/
+RUN pip install --no-cache-dir -r requirements.txt && pip install werkzeug===2.2.2
+
+COPY app.py .
+COPY templates/ templates/
+COPY static/ static/
+
+EXPOSE 5000
+
+ENV REDIS_HOST="redis-server"
+
+ENTRYPOINT ["flask", "run", "--host=0.0.0.0"]
+```  
+- Vamos gerar a imagem da aplicação com o comando "docker Build"  
+
+```
+docker build -t israeldoamaral/linuxtips-giropops-senhas:1.0 -f Dockerfile.app .
+```
+
+2. "Dockerfile.redis" do banco Redis
+
+```
+FROM redis:7.2.4
+
+LABEL description="Desafio Day2" \
+      stack="Redis" \
+      version="7.2.4"
+
+EXPOSE 6379
+
+ENTRYPOINT [ "redis-server" ]
+```
+
+- Vamos gerar a imagem do Redis com o comando "docker Build"  
+```
+docker build -t israeldoamaral/redis-server -f Dockerfile.redis .
+```  
+
+### Push das imagens para o Docker Hub  
+
+1. push da imagem da aplicação  
+
+```
+docker push israeldoamaral/linuxtips-giropops-senhas:1.0
+```  
+
+2. push da imagem do Redis  
+
+```
+docker push israeldoamaral/redis-server
+```  
+
+## Rodando os containers  
+
+```
+docker network create app_network  
+docker run -d --name redis-server --network app_network israeldoamaral/redis-server  
+docker run -it -p 5000:5000 --network app_network --name app israeldoamaral/linuxtips-giropops-senhas:1.0
+```
+
+![print1](./prints/1.png)
