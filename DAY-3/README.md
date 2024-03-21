@@ -2,11 +2,13 @@
 
 ### Descrição
 
-1. Cria as imagem da aplicação e Redis usando como base as imagens Distroless da chainguard. deixando-as com tamanho reduzido e com pouca ou sem vulnerabilidades.  
+1. Criar as imagens da aplicação e Redis usando como base as Distroless da chainguard. deixando-as com tamanho reduzido e com pouca ou sem vulnerabilidades.  
 2. Usar o metodo Multistage Build.  
+3. Verificar as vunerabilidades das imagens com o **Trivy**
+4. Assinar as imagens utilizando o **Cosing**
   
 
-## Faça o Fork da aplicação  
+## Faça o Fork da aplicação
 ```
 https://github.com/badtuxx/giropops-senhas
 ```
