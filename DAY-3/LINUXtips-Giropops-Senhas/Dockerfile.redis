@@ -1,0 +1,10 @@
+FROM  cgr.dev/chainguard/redis 
+
+
+LABEL description="Desafio Day2" \
+      stack="Redis" \
+      version="7.2.4"
+
+EXPOSE 6379
+
+ENTRYPOINT [ "redis-server" ]
