@@ -20,5 +20,5 @@ Esse não é um teste fácil, então tenha paciência com você!
     Você precisa deixar o container rodando  
 8.  O Redis precisa ser um container  
 
-[!TIP]  
+> [!TIP]  
 Preste atenção no uso de variável de ambiente, precisamos ter a variável REDIS_HOST no container. Use sua criatividade!
