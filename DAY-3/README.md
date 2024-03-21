@@ -1,8 +1,5 @@
 ## DESAFIO DO DIA 3
 
-Cria as imagem da aplicação e Redis usando como base as imagens Distroless da chainguard. deixando-as com tamanho reduzido e com pouca ou sem vulnerabilidades.
-
-
 ### Descrição
 
 1. Cria as imagem da aplicação e Redis usando como base as imagens Distroless da chainguard. deixando-as com tamanho reduzido e com pouca ou sem vulnerabilidades.  
